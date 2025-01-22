@@ -1,0 +1,17 @@
+.company-select {
+  padding: 16px 14px;
+  gap: 14px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: var(--box-shadow);
+  .label-title {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .company-desc {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+}

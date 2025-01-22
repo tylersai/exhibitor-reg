@@ -1,0 +1,40 @@
+<div class="company-select d-flex flex-column">
+  <div class="d-flex flex-column">
+    <h6 class="label-title">Event Selection</h6>
+    @if (events.length > 0) { @for (event of events; track event) {
+    <div class="form-check mt-1 mb-2">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="selectedEvent"
+        [id]="'id-' + event"
+        (change)="handleSelectEvent(event)"
+      />
+      <label class="form-check-label" [for]="'id-' + event">
+        {{ event }}
+      </label>
+    </div>
+    } } @else {
+    <p>No events</p>
+    }
+  </div>
+  <div class="d-flex flex-column">
+    <h6 class="label-title mb-1">Company</h6>
+    <small class="company-desc">
+      If you are unable to find your company name, please approach our Exhibitor
+      Team for assistance.
+    </small>
+    <select
+      class="form-select mt-2"
+      aria-label="Select company"
+      placeholder="Please select"
+      [disabled]="companies.length === 0"
+      (change)="handleSelectCompany($event)"
+    >
+      <option value="">Please select</option>
+      @for (company of companies; track company) {
+      <option [value]="company">{{ company }}</option>
+      }
+    </select>
+  </div>
+</div>

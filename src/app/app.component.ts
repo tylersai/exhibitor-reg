@@ -3,10 +3,16 @@ import { RouterOutlet } from '@angular/router';
 import { BannerComponent } from './components/banner/banner.component';
 import { CompanyService } from './services/company.service';
 import { CompanySelectComponent } from './components/company-select/company-select.component';
+import { ExhibitorFormComponent } from './components/exhibitor-form/exhibitor-form.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BannerComponent, CompanySelectComponent],
+  imports: [
+    RouterOutlet,
+    BannerComponent,
+    CompanySelectComponent,
+    ExhibitorFormComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -29,7 +35,7 @@ export class AppComponent {
           } else {
             grouped[el.S_event] = [el.S_company];
           }
-        }, {});
+        });
         this.companiesByEvent = grouped;
         this.events = Object.keys(grouped);
       }

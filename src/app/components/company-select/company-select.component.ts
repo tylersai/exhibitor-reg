@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'company-select',
+  selector: 'app-company-select',
   imports: [],
   templateUrl: './company-select.component.html',
   styleUrl: './company-select.component.scss',

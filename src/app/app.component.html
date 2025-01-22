@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
         <h2 class="title text-primary mb-3">Onsite Exhibitors Registration</h2>
-        <company-select
+        <app-company-select
           [events]="events"
           [companies]="companies"
           (selectEvent)="handleSelectEvent($event)"
@@ -13,10 +13,13 @@
         @if (selectedEvent && selectedCompany) {
         <hr class="my-4" />
 
-        <span>* All fields are mandatory.</span>
-        <div class="d-flex flex-column"></div>
+        <div class="mb-2">* All fields are mandatory.</div>
 
-        <div class="d-flex justify-content-center my-4">
+        <div class="d-flex flex-column">
+          <app-exhibitor-form [index]="0" />
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin: 32px 0">
           <button
             class="btn d-inline-flex align-items-center text-primary bg-transparent p-0 gap-1 border-0"
           >
@@ -27,7 +30,10 @@
 
         <hr />
 
-        <button class="btn btn-register w-100 mt-1 text-white bg-primary">
+        <button
+          class="btn btn-register w-100 mt-1 mb-5 text-white bg-primary"
+          style="height: 48px"
+        >
           Register
         </button>
         }

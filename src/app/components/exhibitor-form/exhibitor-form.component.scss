@@ -4,6 +4,8 @@
   box-shadow: var(--box-shadow);
 
   .exhibitor-form-header {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     padding: 16px 14px;
     background-color: #fde8e7;
     h4 {

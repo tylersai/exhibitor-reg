@@ -94,12 +94,9 @@ export class AppComponent {
     this.selectedCompany = company;
   }
 
-  submitForm() {
-    console.log(this.exhibitorsForm.valid);
-    console.log(this.exhibitorsForm.errors);
-    console.log(this.exhibitorsForm.getRawValue());
-    if (this.exhibitorsForm.valid) {
-      const persons: Exhibitor[] = this.persons.getRawValue();
+  processRegister() {
+    const persons: Exhibitor[] = this.persons.getRawValue();
+    if (persons.length > 0 && this.exhibitorsForm.valid) {
       const payloads: ExhibitorPayload[] = persons.map<ExhibitorPayload>(
         (p) => {
           return {
@@ -111,8 +108,8 @@ export class AppComponent {
             S_job_title: p.job,
             S_country: p.country,
             S_company_on_badge: p.company,
-            SB_event_fha: this.selectedCompany === 'FHA-Food & Beverage',
-            SB_event_prowine: this.selectedCompany === 'Prowine Singapore',
+            SB_event_fha: this.selectedEvent === 'FHA-Food & Beverage',
+            SB_event_prowine: this.selectedEvent === 'Prowine Singapore',
           };
         }
       );
@@ -130,6 +127,8 @@ export class AppComponent {
             console.log({ status, data });
           });
       });
+    } else {
+      this.exhibitorsForm.markAllAsTouched();
     }
   }
 }

@@ -106,8 +106,8 @@
                     id="country"
                     formControlName="country"
                   >
-                    <option value="SG">Singapore</option>
-                    <option value="TH">Thailand</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="Thailand">Thailand</option>
                   </select>
                   <div
                     *ngIf="
@@ -136,7 +136,7 @@
                     "
                     class="form-text"
                   >
-                    Companh on badge is required
+                    Company on badge is required
                   </div>
                 </div>
               </div>
@@ -160,7 +160,7 @@
         <button
           class="btn btn-register w-100 mt-1 mb-5 text-white bg-primary"
           style="height: 48px"
-          (click)="submitForm()"
+          (click)="processRegister()"
         >
           Register
         </button>

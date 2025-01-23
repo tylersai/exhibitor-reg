@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
+import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
 import { COUNTRIES, EventType } from '../utils/constant';
@@ -46,6 +47,8 @@ export class AppComponent {
   isProcessing: boolean = false;
   failureStats: FailureStats | null = null;
 
+  private successModal?: Modal;
+
   constructor(
     private companyService: CompanyService,
     private registrationService: RegistrationService,
@@ -72,6 +75,11 @@ export class AppComponent {
       }
     });
     this.addPerson();
+
+    const modalRef = document.getElementById('success-modal');
+    if (modalRef) {
+      this.successModal = new Modal(modalRef);
+    }
   }
 
   get persons() {
@@ -101,6 +109,19 @@ export class AppComponent {
 
   handleSelectCompany(company: string) {
     this.selectedCompany = company;
+  }
+
+  handleSaveAsImage() {
+    alert('Save as image feature not implemented yet');
+    this.closeSuccessModal();
+  }
+
+  openSuccessModal() {
+    this.successModal?.show();
+  }
+
+  closeSuccessModal() {
+    this.successModal?.hide();
   }
 
   private resetAll() {
@@ -137,7 +158,7 @@ export class AppComponent {
       this.isProcessing = false;
       const allSuccess = !results.some((rs) => rs.status === 'rejected');
       if (allSuccess) {
-        alert('show modal here');
+        this.openSuccessModal();
         this.resetAll();
       } else {
         let failCount = 0;

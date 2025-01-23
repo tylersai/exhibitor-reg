@@ -1,0 +1,12 @@
+.error-info {
+  line-height: normal;
+  .stat {
+    gap: 2px;
+    padding: 16px 14px;
+    border-radius: 8px;
+    background: #fce4e4;
+  }
+  strong {
+    font-weight: 600;
+  }
+}

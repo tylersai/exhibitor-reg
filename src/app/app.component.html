@@ -3,7 +3,14 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-        <h2 class="title text-primary mb-3">Onsite Exhibitors Registration</h2>
+        @if (failureStats) {
+        <app-error-info
+          [failCount]="failureStats.failCount"
+          [totalCount]="failureStats.totalCount"
+        />
+        } @else {
+        <h2 class="title text-primary">Onsite Exhibitors Registration</h2>
+        }
         <app-company-select
           [events]="events"
           [companies]="companies"

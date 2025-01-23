@@ -15,6 +15,7 @@ import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
 import { EventType } from '../utils/constant';
 import { generateRandomCode } from '../utils/helper';
+import { ErrorInfoComponent } from './components/error-info/error-info.component';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { generateRandomCode } from '../utils/helper';
     NgIf,
     BannerComponent,
     CompanySelectComponent,
+    ErrorInfoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

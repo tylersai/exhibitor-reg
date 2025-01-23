@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { ApiResponse, ExhibitorPayload } from '../../types';
+import { ExhibitorPayload } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +8,18 @@ import { ApiResponse, ExhibitorPayload } from '../../types';
 export class RegistrationService {
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  private async register(payload: ExhibitorPayload) {
+    const response = await fetch(`${this.baseUrl}/add-exhibitor`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (response.ok) {
+      return response.json();
+    } else throw response.json();
+  }
 
-  register(exhibitorPayload: ExhibitorPayload) {
-    return this.http.post<ApiResponse<any>>(
-      `${this.baseUrl}/add-exhibitor`,
-      exhibitorPayload
-    );
+  registerAll(payloads: ExhibitorPayload[]) {
+    return Promise.allSettled(payloads.map((el) => this.register(el)));
   }
 }

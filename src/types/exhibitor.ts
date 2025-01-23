@@ -18,3 +18,9 @@ export type ExhibitorPayload = {
   SB_event_fha: boolean;
   SB_event_prowine: boolean;
 };
+
+export type FailureStats = {
+  failCount: number;
+  totalCount: number;
+  errors: Array<{ originalIndex: number; message: string }>;
+};

@@ -12,8 +12,9 @@ import {
 } from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
 import { RegistrationService } from './services/registration.service';
-import { Exhibitor, ExhibitorPayload } from '../types';
-import { catchError, throwError } from 'rxjs';
+import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
+import { EventType } from '../utils/constant';
+import { generateRandomCode } from '../utils/helper';
 
 @Component({
   selector: 'app-root',
@@ -29,13 +30,18 @@ import { catchError, throwError } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  events: string[] = [];
+  groupRegCode: string = '';
+
+  events: string[] = [EventType.FHA, EventType.PROWINE];
   companies: string[] = [];
   companiesByEvent: Record<string, string[]> = {};
   selectedEvent: string = '';
   selectedCompany: string = '';
 
   exhibitorsForm: FormGroup;
+
+  isProcessing: boolean = false;
+  failureStats: FailureStats | null = null;
 
   constructor(
     private companyService: CompanyService,
@@ -48,6 +54,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.groupRegCode = generateRandomCode();
     this.companyService.getList().subscribe(({ status, message: data }) => {
       if (status) {
         const grouped: Record<string, string[]> = {};
@@ -59,7 +66,6 @@ export class AppComponent {
           }
         });
         this.companiesByEvent = grouped;
-        this.events = Object.keys(grouped);
       }
     });
     this.addPerson();
@@ -86,7 +92,7 @@ export class AppComponent {
 
   handleSelectEvent(event: string) {
     this.selectedEvent = event;
-    this.companies = this.companiesByEvent[event];
+    this.companies = this.companiesByEvent[event] || [];
     this.selectedCompany = '';
   }
 
@@ -94,39 +100,62 @@ export class AppComponent {
     this.selectedCompany = company;
   }
 
-  processRegister() {
+  private resetAll() {
+    this.selectedEvent = '';
+    this.selectedCompany = '';
+    this.companies = [];
+    this.persons.clear();
+    this.addPerson();
+  }
+
+  private mapExhibitorPayload(person: Exhibitor): ExhibitorPayload {
+    const { name, email, job, country, company } = person;
+    return {
+      S_added_via: 'Web Form',
+      S_company: this.selectedCompany,
+      S_email_address: email,
+      S_group_reg_id: this.groupRegCode,
+      S_name_on_badge: name,
+      S_job_title: job,
+      S_country: country,
+      S_company_on_badge: company,
+      SB_event_fha: this.selectedEvent === EventType.FHA,
+      SB_event_prowine: this.selectedEvent === EventType.PROWINE,
+    };
+  }
+
+  async processRegister() {
     const persons: Exhibitor[] = this.persons.getRawValue();
     if (persons.length > 0 && this.exhibitorsForm.valid) {
-      const payloads: ExhibitorPayload[] = persons.map<ExhibitorPayload>(
-        (p) => {
-          return {
-            S_added_via: 'Web Form',
-            S_company: this.selectedCompany,
-            S_email_address: p.email,
-            S_group_reg_id: 'ESVTE',
-            S_name_on_badge: p.name,
-            S_job_title: p.job,
-            S_country: p.country,
-            S_company_on_badge: p.company,
-            SB_event_fha: this.selectedEvent === 'FHA-Food & Beverage',
-            SB_event_prowine: this.selectedEvent === 'Prowine Singapore',
-          };
-        }
-      );
-
-      payloads.forEach((payload) => {
-        this.registrationService
-          .register(payload)
-          .pipe(
-            catchError((err) => {
-              console.log('caught mapping error and rethrowing', err);
-              return throwError(() => new Error(err));
-            })
-          )
-          .subscribe(({ status, message: data }) => {
-            console.log({ status, data });
-          });
-      });
+      const payloads = persons.map((p) => this.mapExhibitorPayload(p));
+      this.failureStats = null;
+      this.isProcessing = true;
+      const results = await this.registrationService.registerAll(payloads);
+      this.isProcessing = false;
+      const allSuccess = !results.some((rs) => rs.status === 'rejected');
+      if (allSuccess) {
+        alert('show modal here');
+        this.resetAll();
+      } else {
+        let failCount = 0;
+        let errors: Array<{ originalIndex: number; message: string }> = [];
+        results.forEach((rs, ind) => {
+          if (rs.status === 'rejected') {
+            failCount++;
+            errors.push({
+              originalIndex: ind,
+              message: rs.reason.message,
+            });
+          } else {
+            this.persons.removeAt(ind);
+          }
+        });
+        this.failureStats = {
+          totalCount: results.length,
+          failCount,
+          errors,
+        };
+      }
     } else {
       this.exhibitorsForm.markAllAsTouched();
     }

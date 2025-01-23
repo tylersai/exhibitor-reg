@@ -117,8 +117,9 @@
                     id="country"
                     formControlName="country"
                   >
-                    <option value="Singapore">Singapore</option>
-                    <option value="Thailand">Thailand</option>
+                    <option *ngFor="let country of countries" [value]="country">
+                      {{ country }}
+                    </option>
                   </select>
                   <div
                     *ngIf="

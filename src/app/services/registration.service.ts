@@ -9,7 +9,7 @@ export class RegistrationService {
   private baseUrl = environment.baseUrl;
 
   private async register(payload: ExhibitorPayload) {
-    const response = await fetch(`${this.baseUrl}/add-exhibitor`, {
+    const response = await fetch(`${this.baseUrl}/api/add-exhibitor`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

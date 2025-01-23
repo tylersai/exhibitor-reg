@@ -13,7 +13,7 @@ export class CompanyService {
 
   getList() {
     return this.http.post<ApiResponse<Company[]>>(
-      `${this.baseUrl}/exhibitor-company-list`,
+      `${this.baseUrl}/api/exhibitor-company-list`,
       {}
     );
   }

@@ -13,7 +13,7 @@ import {
 import { NgForOf, NgIf } from '@angular/common';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
-import { EventType } from '../utils/constant';
+import { COUNTRIES, EventType } from '../utils/constant';
 import { generateRandomCode } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
 
@@ -36,6 +36,7 @@ export class AppComponent {
 
   events: string[] = [EventType.FHA, EventType.PROWINE];
   companies: string[] = [];
+  countries: string[] = COUNTRIES;
   companiesByEvent: Record<string, string[]> = {};
   selectedEvent: string = '';
   selectedCompany: string = '';

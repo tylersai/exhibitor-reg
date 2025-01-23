@@ -4,7 +4,7 @@
   >
     <h4 class="m-0">Exhibitor #{{ index + 1 }}</h4>
     <button
-      class="btn p-0 m-0 text-primary text-decoration-underline"
+      class="btn p-0 m-0 text-primary text-decoration-underline bg-transparent border-0"
       (click)="handleRemove()"
     >
       Remove
@@ -14,26 +14,41 @@
   <div class="exhibitor-form-body d-flex flex-column align-items-stretch">
     <div class="form-group">
       <label for="email" class="form-label">Email Address</label>
-      <input type="email" class="form-control" id="email" />
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+      />
     </div>
     <div class="form-group">
       <label for="name" class="form-label">Name on Badge</label>
-      <input type="text" class="form-control" id="name" />
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+      />
     </div>
     <div class="form-group">
       <label for="job" class="form-label">Job Title</label>
-      <input type="text" class="form-control" id="job" />
+      <input type="text" class="form-control" id="job" formControlName="job" />
     </div>
     <div class="form-group">
       <label for="country" class="form-label">Country</label>
-      <select class="form-select" id="country">
+      <select class="form-select" id="country" formControlName="country">
         <option value="SG">Singapore</option>
         <option value="TH">Thailand</option>
       </select>
     </div>
     <div class="form-group">
       <label for="company" class="form-label">Company on Badge</label>
-      <input type="text" class="form-control" id="company" />
+      <input
+        type="text"
+        class="form-control"
+        id="company"
+        formControlName="company"
+      />
     </div>
   </div>
 </div>

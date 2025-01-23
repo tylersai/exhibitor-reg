@@ -16,7 +16,7 @@ export class RegistrationService {
     });
     if (response.ok) {
       return response.json();
-    } else throw response.json();
+    } else throw await response.json();
   }
 
   registerAll(payloads: ExhibitorPayload[]) {

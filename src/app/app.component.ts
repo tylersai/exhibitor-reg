@@ -115,12 +115,12 @@ export class AppComponent {
     return {
       S_added_via: 'Web Form',
       S_company: this.selectedCompany,
-      S_email_address: email,
+      S_email_address: email.trim().toLowerCase(),
       S_group_reg_id: this.groupRegCode,
-      S_name_on_badge: name,
-      S_job_title: job,
+      S_name_on_badge: name.trim(),
+      S_job_title: job.trim(),
       S_country: country,
-      S_company_on_badge: company,
+      S_company_on_badge: company.trim(),
       SB_event_fha: this.selectedEvent === EventType.FHA,
       SB_event_prowine: this.selectedEvent === EventType.PROWINE,
     };
@@ -157,6 +157,10 @@ export class AppComponent {
           failCount,
           errors,
         };
+
+        document
+          .getElementById('app-banner')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
       this.exhibitorsForm.markAllAsTouched();

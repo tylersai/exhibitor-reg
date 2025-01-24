@@ -9,6 +9,7 @@
         name="selectedEvent"
         [id]="'id-' + event"
         (change)="handleSelectEvent(event)"
+        [disabled]="isLoading"
       />
       <label class="form-check-label" [for]="'id-' + event">
         {{ event }}

@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './company-select.component.scss',
 })
 export class CompanySelectComponent {
+  @Input() isLoading: boolean = false;
   @Input() events: string[] = [];
   @Input() companies: string[] = [];
   @Input() selectedEvent: string = '';

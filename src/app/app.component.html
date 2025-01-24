@@ -12,6 +12,7 @@
         <h2 class="title text-primary">Onsite Exhibitors Registration</h2>
         }
         <app-company-select
+          [isLoading]="isLoading"
           [events]="events"
           [companies]="companies"
           (selectEvent)="handleSelectEvent($event)"

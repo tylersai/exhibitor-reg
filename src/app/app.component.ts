@@ -46,6 +46,7 @@ export class AppComponent {
 
   exhibitorsForm: FormGroup;
 
+  isLoading: boolean = false;
   isProcessing: boolean = false;
   failureStats: FailureStats | null = null;
 
@@ -64,6 +65,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.groupRegCode = generateRandomCode();
+    this.isLoading = true;
     this.companyService.getList().subscribe(({ status, message: data }) => {
       if (status) {
         const grouped: Record<string, string[]> = {};
@@ -76,6 +78,7 @@ export class AppComponent {
         });
         this.companiesByEvent = grouped;
       }
+      this.isLoading = false;
     });
     this.countryService.getListFromExternalSource().then((data) => {
       this.countries = data;

@@ -3,6 +3,7 @@
 ### Live Demo
 
 You can view live demo here: [https://exhibitor-reg.netlify.app](https://exhibitor-reg.netlify.app)
+<br />
 _Note: need to allow `CORS` for this URL via backend if you want to fully test the app out_
 
 ### Development server
@@ -39,6 +40,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 
 ### Limitations or future improvements
 
+- I have replaced [https://staging-fha-2024.occamlab.com.sg/public/provinces.json](https://staging-fha-2024.occamlab.com.sg/public/provinces.json) with an external api [https://restcountries.com/v3.1/independent?status=true&fields=name](https://restcountries.com/v3.1/independent?status=true&fields=name) because it greatly causes permormance issue and what the app need is just a list of countries
 - use better dropdown selection instead of relying on bootstrap's styling only
 - list of country selection can be improved by adding features like putting frequently selected country on top, allow search, and load only few countries first via backend and load more as user types
-- should have better display of results when there are a mix of success and failure registrations.
+- should have better display of results when there are a mix of success and failure registrations

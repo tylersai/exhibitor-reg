@@ -1,59 +1,44 @@
-# ExhibitorReg
+# Exhibitors Registration
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.3.
+### Live Demo
 
-## Development server
+You can view live demo here: [https://exhibitor-reg.netlify.app](https://exhibitor-reg.netlify.app)
+_Note: need to allow `CORS` for this URL via backend if you want to fully test the app out_
+
+### Development server
+
+To change environment variables edit `src/environments/environment.ts`
+
+Install required dependencies:
+
+```bash
+npm install
+```
 
 To start a local development server, run:
 
 ```bash
-ng serve
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
+### Building
 
 To build the project run:
 
 ```bash
-ng build
+npm build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+### Third-party libraries used
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+[html2canvas](https://github.com/niklasvh/html2canvas) - to capture specific part of web page as HTML `<canvas>` and save as image. It's used to save registration code as png image in this project.
 
-```bash
-ng test
-```
+### Limitations or future improvements
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- use better dropdown selection instead of relying on bootstrap's styling only
+- list of country selection can be improved by adding features like putting frequently selected country on top, allow search, and load only few countries first via backend and load more as user types
+- should have better display of results when there are a mix of success and failure registrations.

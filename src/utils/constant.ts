@@ -3,4 +3,4 @@ export const EventType = {
   PROWINE: 'Prowine Singapore',
 };
 
-export const COUNTRIES = ['Singapore', 'Thailand', 'Malaysia'];
+export const DEFAULT_COUNTRIES = ['Singapore', 'Thailand', 'Malaysia'];

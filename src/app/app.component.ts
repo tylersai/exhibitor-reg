@@ -14,10 +14,11 @@ import { NgForOf, NgIf } from '@angular/common';
 import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
-import { COUNTRIES, EventType } from '../utils/constant';
+import { DEFAULT_COUNTRIES, EventType } from '../utils/constant';
 import { generateRandomCode, saveDataUrlAsImage } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
 import html2canvas from 'html2canvas';
+import { CountryService } from './services/country.service';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +39,7 @@ export class AppComponent {
 
   events: string[] = [EventType.FHA, EventType.PROWINE];
   companies: string[] = [];
-  countries: string[] = COUNTRIES;
+  countries: string[] = DEFAULT_COUNTRIES;
   companiesByEvent: Record<string, string[]> = {};
   selectedEvent: string = '';
   selectedCompany: string = '';
@@ -52,6 +53,7 @@ export class AppComponent {
 
   constructor(
     private companyService: CompanyService,
+    private countryService: CountryService,
     private registrationService: RegistrationService,
     private fb: FormBuilder
   ) {
@@ -75,12 +77,14 @@ export class AppComponent {
         this.companiesByEvent = grouped;
       }
     });
+    this.countryService.getListFromExternalSource().then((data) => {
+      this.countries = data;
+    });
     this.addPerson();
 
     const modalRef = document.getElementById('success-modal');
     if (modalRef) {
       this.successModal = new Modal(modalRef);
-      this.openSuccessModal();
     }
   }
 
@@ -118,7 +122,7 @@ export class AppComponent {
     if (canvasEl) {
       html2canvas(canvasEl).then((canvas) => {
         const dataUrl = canvas.toDataURL('image/png');
-        saveDataUrlAsImage(dataUrl);
+        saveDataUrlAsImage(dataUrl, `${this.groupRegCode}.png`);
       });
     }
     this.closeSuccessModal();
@@ -158,7 +162,7 @@ export class AppComponent {
 
   async processRegister() {
     const persons: Exhibitor[] = this.persons.getRawValue();
-    if (persons.length > 0 && this.exhibitorsForm.valid) {
+    if (!this.isProcessing && persons.length > 0 && this.exhibitorsForm.valid) {
       const payloads = persons.map((p) => this.mapExhibitorPayload(p));
       this.failureStats = null;
       this.isProcessing = true;

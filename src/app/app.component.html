@@ -46,6 +46,7 @@
                 <button
                   class="btn p-0 m-0 text-primary text-decoration-underline bg-transparent border-0"
                   (click)="removePerson(i)"
+                  [disabled]="isProcessing"
                 >
                   Remove
                 </button>

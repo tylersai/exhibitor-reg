@@ -7,3 +7,10 @@ export type City = {
   level3_active: number;
   city: string;
 };
+
+export type Country = {
+  name: {
+    common: string;
+    official: string;
+  };
+};

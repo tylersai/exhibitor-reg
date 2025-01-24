@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { City } from '../../types/country';
+import { City, Country } from '../../types/country';
+import { DEFAULT_COUNTRIES } from '../../utils/constant';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { City } from '../../types/country';
 export class CountryService {
   private baseUrl = environment.baseUrl;
 
-  async getList(): Promise<string[]> {
+  async getListFromProvinces(): Promise<string[]> {
     const response = await fetch(`${this.baseUrl}/public/provinces.json`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -24,6 +25,22 @@ export class CountryService {
       });
 
       return countries;
-    } else return ['Singapore'];
+    } else return DEFAULT_COUNTRIES;
+  }
+
+  async getListFromExternalSource(): Promise<string[]> {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/independent?status=true&fields=name`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    if (response.ok) {
+      const countries = (await response.json()) as Country[];
+      return countries
+        .map((c) => c.name.common)
+        .sort((a, b) => a.localeCompare(b));
+    } else return DEFAULT_COUNTRIES;
   }
 }

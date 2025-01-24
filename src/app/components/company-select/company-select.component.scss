@@ -20,4 +20,17 @@
     border: 1px solid #d8d6de;
     height: 46px;
   }
+
+  .form-check-input {
+    background-color: #fff;
+    border-color: #6e6b7b;
+    transition: all 120ms ease-out;
+    &:checked {
+      background-color: var(--bs-primary);
+      border-color: var(--bs-primary);
+    }
+    &:checked[type="radio"] {
+      --bs-form-check-bg-image: none;
+    }
+  }
 }

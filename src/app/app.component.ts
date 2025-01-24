@@ -15,8 +15,9 @@ import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
 import { COUNTRIES, EventType } from '../utils/constant';
-import { generateRandomCode } from '../utils/helper';
+import { generateRandomCode, saveDataUrlAsImage } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -79,6 +80,7 @@ export class AppComponent {
     const modalRef = document.getElementById('success-modal');
     if (modalRef) {
       this.successModal = new Modal(modalRef);
+      this.openSuccessModal();
     }
   }
 
@@ -112,7 +114,13 @@ export class AppComponent {
   }
 
   handleSaveAsImage() {
-    alert('Save as image feature not implemented yet');
+    const canvasEl = document.getElementById('code-canvas');
+    if (canvasEl) {
+      html2canvas(canvasEl).then((canvas) => {
+        const dataUrl = canvas.toDataURL('image/png');
+        saveDataUrlAsImage(dataUrl);
+      });
+    }
     this.closeSuccessModal();
   }
 

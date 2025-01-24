@@ -145,6 +145,7 @@ export class AppComponent {
     this.companies = [];
     this.persons.clear();
     this.addPerson();
+    this.groupRegCode = generateRandomCode();
   }
 
   private mapExhibitorPayload(person: Exhibitor): ExhibitorPayload {

@@ -15,11 +15,10 @@ import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
 import { DEFAULT_COUNTRIES, EventType } from '../utils/constant';
-import { generateRandomCode, saveDataUrlAsImage } from '../utils/helper';
+import { generateRandomCode } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
-import html2canvas from 'html2canvas';
 import { CountryService } from './services/country.service';
-import { SuccessModalComponent } from './success-modal/success-modal.component';
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -120,17 +119,6 @@ export class AppComponent {
 
   handleSelectCompany(company: string) {
     this.selectedCompany = company;
-  }
-
-  handleSaveAsImage() {
-    const canvasEl = document.getElementById('code-canvas');
-    if (canvasEl) {
-      html2canvas(canvasEl).then((canvas) => {
-        const dataUrl = canvas.toDataURL('image/png');
-        saveDataUrlAsImage(dataUrl, `${this.groupRegCode}.png`);
-      });
-    }
-    this.closeSuccessModal();
   }
 
   openSuccessModal() {

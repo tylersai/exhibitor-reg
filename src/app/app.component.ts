@@ -67,19 +67,25 @@ export class AppComponent {
   ngOnInit() {
     this.groupRegCode = generateRandomCode();
     this.isLoading = true;
-    this.companyService.getList().subscribe(({ status, message: data }) => {
-      if (status) {
-        const grouped: Record<string, string[]> = {};
-        data.forEach((el) => {
-          if (grouped[el.S_event]) {
-            grouped[el.S_event].push(el.S_company);
-          } else {
-            grouped[el.S_event] = [el.S_company];
-          }
-        });
-        this.companiesByEvent = grouped;
-      }
-      this.isLoading = false;
+    this.companyService.getList().subscribe({
+      next: ({ status, message: data }) => {
+        this.isLoading = false;
+        if (status) {
+          const grouped: Record<string, string[]> = {};
+          data.forEach((el) => {
+            if (grouped[el.S_event]) {
+              grouped[el.S_event].push(el.S_company);
+            } else {
+              grouped[el.S_event] = [el.S_company];
+            }
+          });
+          this.companiesByEvent = grouped;
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error(err.message);
+      },
     });
     this.countryService.getListFromExternalSource().then((data) => {
       this.countries = data;

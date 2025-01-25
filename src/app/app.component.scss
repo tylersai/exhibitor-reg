@@ -51,31 +51,3 @@
     }
   }
 }
-
-#success-modal {
-  .code-canvas {
-    padding: 32px 16px;
-    height: 200px;
-
-    .reg-title {
-      font-size: 18px;
-      font-weight: 600;
-      line-height: normal;
-      margin-bottom: 24px;
-    }
-    .reg-label {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: normal;
-      margin-bottom: 8px;
-    }
-    .reg-code {
-      color: #ee4036;
-      font-size: 32px;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: 16px;
-      margin-bottom: 16px;
-    }
-  }
-}

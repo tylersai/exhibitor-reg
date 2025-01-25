@@ -1,0 +1,31 @@
+<div id="success-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-column align-items-stretch text-center">
+          <div
+            id="code-canvas"
+            class="code-canvas d-flex flex-column align-items-center justify-content-center"
+          >
+            <h5 class="reg-title">Registration Completed</h5>
+            <span class="reg-label">Your unique code is</span>
+            <strong class="reg-code">{{ groupRegCode }}</strong>
+          </div>
+          <button
+            class="btn btn-primary text-white bg-primary border-0"
+            style="height: 48px"
+            (click)="saveAsImage.emit()"
+          >
+            Save as Image
+          </button>
+          <button
+            class="btn text-primary bg-transparent p-0 border-0 align-self-center mt-2"
+            (click)="closeModal.emit()"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,6 +19,7 @@ import { generateRandomCode, saveDataUrlAsImage } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
 import html2canvas from 'html2canvas';
 import { CountryService } from './services/country.service';
+import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ import { CountryService } from './services/country.service';
     BannerComponent,
     CompanySelectComponent,
     ErrorInfoComponent,
+    SuccessModalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

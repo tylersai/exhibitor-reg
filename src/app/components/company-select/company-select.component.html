@@ -8,6 +8,7 @@
         type="radio"
         name="selectedEvent"
         [id]="'id-' + event"
+        [value]="event"
         (change)="handleSelectEvent(event)"
         [disabled]="isLoading"
       />

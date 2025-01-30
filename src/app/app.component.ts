@@ -14,11 +14,11 @@ import { NgForOf, NgIf } from '@angular/common';
 import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
-import { DEFAULT_COUNTRIES, EventType } from '../utils/constant';
+import { EventType } from '../utils/constant';
 import { generateRandomCode } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
-import { CountryService } from './services/country.service';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
+import { CountrySelectComponent } from './components/country-select/country-select.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +31,7 @@ import { SuccessModalComponent } from './components/success-modal/success-modal.
     CompanySelectComponent,
     ErrorInfoComponent,
     SuccessModalComponent,
+    CountrySelectComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -40,7 +41,6 @@ export class AppComponent {
 
   events: string[] = [EventType.FHA, EventType.PROWINE];
   companies: string[] = [];
-  countries: string[] = DEFAULT_COUNTRIES;
   companiesByEvent: Record<string, string[]> = {};
   selectedEvent: string = '';
   selectedCompany: string = '';
@@ -55,7 +55,6 @@ export class AppComponent {
 
   constructor(
     private companyService: CompanyService,
-    private countryService: CountryService,
     private registrationService: RegistrationService,
     private fb: FormBuilder
   ) {
@@ -86,9 +85,6 @@ export class AppComponent {
         this.isLoading = false;
         console.error(err.message);
       },
-    });
-    this.countryService.getListFromExternalSource().then((data) => {
-      this.countries = data;
     });
     this.addPerson();
 
@@ -133,10 +129,13 @@ export class AppComponent {
 
   closeSuccessModal() {
     this.successModal?.hide();
-    // this.resetAll();
+    this.resetAll();
   }
 
   private resetAll() {
+    this.selectedEvent = '';
+    this.selectedCompany = '';
+    this.companies = [];
     this.persons.clear();
     this.addPerson();
     this.groupRegCode = generateRandomCode();

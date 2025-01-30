@@ -19,8 +19,4 @@ export class CompanySelectComponent {
   handleSelectEvent(event: string) {
     this.selectEvent.emit(event);
   }
-
-  handleSelectCompany(event: Event) {
-    this.selectCompany.emit((event.target as HTMLSelectElement).value);
-  }
 }

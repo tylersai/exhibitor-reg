@@ -25,17 +25,11 @@
       If you are unable to find your company name, please approach our Exhibitor
       Team for assistance.
     </small>
-    <select
-      class="form-select mt-2"
-      aria-label="Select company"
-      placeholder="Please select"
-      [disabled]="companies.length === 0"
-      (change)="handleSelectCompany($event)"
-    >
-      <option value="">Please select</option>
-      @for (company of companies; track company) {
-      <option [value]="company">{{ company }}</option>
-      }
-    </select>
+    <app-custom-select
+      class="mt-2"
+      [options]="companies"
+      [selectedValue]="selectedCompany"
+      (selectionChange)="selectCompany.emit($event)"
+    />
   </div>
 </div>

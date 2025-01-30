@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CustomSelectComponent } from '../custom-select/custom-select.component';
 
 @Component({
   selector: 'app-company-select',
-  imports: [],
+  imports: [CustomSelectComponent],
   templateUrl: './company-select.component.html',
   styleUrl: './company-select.component.scss',
 })

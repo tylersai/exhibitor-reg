@@ -1,0 +1,20 @@
+<div class="custom-select">
+  <div
+    class="select-box form-select"
+    (click)="toggleDropdown()"
+    role="combobox"
+  >
+    <span>{{ selectedValue || "Please select" }}</span>
+  </div>
+
+  <ul class="dropdown" *ngIf="dropdownOpen" role="option">
+    <li
+      *ngFor="let option of options"
+      [class]="option === selectedValue ? 'selected' : ''"
+      (click)="selectOption(option)"
+      role="option"
+    >
+      {{ option }}
+    </li>
+  </ul>
+</div>

@@ -9,6 +9,7 @@
         name="selectedEvent"
         [id]="'id-' + event"
         [value]="event"
+        [checked]="selectedEvent === event"
         (change)="handleSelectEvent(event)"
         [disabled]="isLoading"
       />

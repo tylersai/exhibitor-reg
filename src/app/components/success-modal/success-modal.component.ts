@@ -20,6 +20,5 @@ export class SuccessModalComponent {
         saveDataUrlAsImage(dataUrl, `${this.groupRegCode}.png`);
       });
     }
-    this.closeModal.emit();
   }
 }

@@ -133,12 +133,10 @@ export class AppComponent {
 
   closeSuccessModal() {
     this.successModal?.hide();
+    // this.resetAll();
   }
 
   private resetAll() {
-    this.selectedEvent = '';
-    this.selectedCompany = '';
-    this.companies = [];
     this.persons.clear();
     this.addPerson();
     this.groupRegCode = generateRandomCode();
@@ -171,7 +169,6 @@ export class AppComponent {
       const allSuccess = !results.some((rs) => rs.status === 'rejected');
       if (allSuccess) {
         this.openSuccessModal();
-        this.resetAll();
       } else {
         let failCount = 0;
         let errors: Array<{ originalIndex: number; message: string }> = [];

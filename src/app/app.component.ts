@@ -14,11 +14,12 @@ import { NgForOf, NgIf } from '@angular/common';
 import { Modal } from 'bootstrap';
 import { RegistrationService } from './services/registration.service';
 import { Exhibitor, ExhibitorPayload, FailureStats } from '../types';
-import { EventType } from '../utils/constant';
+import { DEFAULT_COUNTRIES, EventType } from '../utils/constant';
 import { generateRandomCode } from '../utils/helper';
 import { ErrorInfoComponent } from './components/error-info/error-info.component';
 import { SuccessModalComponent } from './components/success-modal/success-modal.component';
 import { CountrySelectComponent } from './components/country-select/country-select.component';
+import { CountryService } from './services/country.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,7 @@ import { CountrySelectComponent } from './components/country-select/country-sele
 export class AppComponent {
   groupRegCode: string = '';
 
+  countries: string[] = DEFAULT_COUNTRIES;
   events: string[] = [EventType.FHA, EventType.PROWINE];
   companies: string[] = [];
   companiesByEvent: Record<string, string[]> = {};
@@ -55,6 +57,7 @@ export class AppComponent {
 
   constructor(
     private companyService: CompanyService,
+    private countryService: CountryService,
     private registrationService: RegistrationService,
     private fb: FormBuilder
   ) {
@@ -87,6 +90,10 @@ export class AppComponent {
       },
     });
     this.addPerson();
+
+    this.countryService.getListFromProvinces().then((data) => {
+      this.countries = data;
+    });
 
     const modalRef = document.getElementById('success-modal');
     if (modalRef) {

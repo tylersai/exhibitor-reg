@@ -116,7 +116,11 @@
                 </div>
                 <div class="form-group">
                   <label for="country" class="form-label">Country</label>
-                  <app-country-select id="country" formControlName="country" />
+                  <app-country-select
+                    id="country"
+                    formControlName="country"
+                    [options]="countries"
+                  />
                   <!-- <select
                     class="form-select"
                     id="country"

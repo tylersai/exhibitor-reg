@@ -1,7 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CountryService } from '../../services/country.service';
 
 @Component({
   imports: [NgIf, NgFor],
@@ -17,16 +16,10 @@ import { CountryService } from '../../services/country.service';
   styleUrls: ['./country-select.component.scss'],
 })
 export class CountrySelectComponent {
-  options: string[] = [];
+  @Input() options: string[] = [];
   selectedValue: string = '';
   dropdownOpen: boolean = false;
 
-  constructor(private countryService: CountryService) {}
-  ngOnInit() {
-    this.countryService.getListFromExternalSource().then((data) => {
-      this.options = data;
-    });
-  }
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};
 

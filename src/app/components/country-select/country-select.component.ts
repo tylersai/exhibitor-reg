@@ -19,6 +19,20 @@ export class CountrySelectComponent {
   @Input() options: string[] = [];
   selectedValue: string = '';
   dropdownOpen: boolean = false;
+  readonly dropdownId = 'country-select';
+
+  ngOnInit() {
+    document.addEventListener('click', (e) => {
+      const dropdownIdEl = document.getElementById(this.dropdownId);
+      if (e.target !== dropdownIdEl) {
+        this.dropdownOpen = false;
+      }
+    });
+  }
+
+  stopClickOutsideTrigger(event: MouseEvent) {
+    event.stopPropagation();
+  }
 
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};

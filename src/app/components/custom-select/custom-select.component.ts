@@ -13,6 +13,20 @@ export class CustomSelectComponent {
   @Output() selectionChange = new EventEmitter<string>();
 
   dropdownOpen: boolean = false;
+  readonly dropdownId = 'custom-select';
+
+  ngOnInit() {
+    document.addEventListener('click', (e) => {
+      const dropdownIdEl = document.getElementById(this.dropdownId);
+      if (e.target !== dropdownIdEl) {
+        this.dropdownOpen = false;
+      }
+    });
+  }
+
+  stopClickOutsideTrigger(event: MouseEvent) {
+    event.stopPropagation();
+  }
 
   toggleDropdown() {
     if (this.options.length > 0) {

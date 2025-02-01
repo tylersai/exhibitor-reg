@@ -1,4 +1,8 @@
-<div class="custom-select">
+<div
+  class="custom-select"
+  [id]="dropdownId"
+  (click)="stopClickOutsideTrigger($event)"
+>
   <div
     class="select-box form-select"
     (click)="toggleDropdown()"

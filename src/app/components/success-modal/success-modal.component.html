@@ -15,7 +15,13 @@
           >
             <h5 class="reg-title">Registration Completed</h5>
             <span class="reg-label">Your unique code is</span>
-            <strong class="reg-code">{{ groupRegCode }}</strong>
+            <strong
+              class="reg-code d-inline-flex align-items-center justify-content-center gap-3"
+            >
+              @for (letter of groupRegCode; track $index) {
+              <span>{{ letter }}</span>
+              }
+            </strong>
           </div>
           <button
             class="btn btn-primary text-white bg-primary border-0"
